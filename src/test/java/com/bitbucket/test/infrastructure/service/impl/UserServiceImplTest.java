@@ -1,6 +1,6 @@
 package com.bitbucket.test.infrastructure.service.impl;
 
-import com.bitbucket.test.domain.mapper.UserMapper;
+import com.bitbucket.test.domain.mapper.UserMapperMock;
 import com.bitbucket.test.domain.model.User;
 import com.bitbucket.test.infrastructure.dto.Response;
 import com.bitbucket.test.infrastructure.dto.UserRequest;
@@ -26,7 +26,7 @@ public class UserServiceImplTest {
 
     @Autowired
     public UserServiceImplTest(UserRepository repository) {
-        service = new UserServiceImpl(repository, new UserMapperImpl());
+        service = new UserServiceImpl(repository, new UserMapperMock());
         this.repository = repository;
     }
 
@@ -142,41 +142,5 @@ public class UserServiceImplTest {
         Assertions.assertNull(response.getResponse());
         Assertions.assertNotNull(response.getMessage());
 
-    }
-
-    class UserMapperImpl implements UserMapper {
-
-        @Override
-        public UserResponse toResponse(User user) {
-            return UserResponse.builder()
-                    .name(user.getName())
-                    .code(user.getCode())
-                    .lastName(user.getLastName()).build();
-        }
-
-        @Override
-        public User toEntity(UserRequest user) {
-            return User.builder().name(user.getName()).build();
-        }
-
-        @Override
-        public User toEntity(UserResponse user) {
-            return User.builder().name(user.getName()).lastName(user.getLastName()).build();
-        }
-
-        @Override
-        public User toEntity(UserRequest user, String codeParam) {
-            return User.builder().name(user.getName()).lastName(user.getLastName()).code(codeParam).build();
-        }
-
-        @Override
-        public List<UserResponse> toResponse(List<User> users) {
-            return users.stream().map(this::toResponse).collect(Collectors.toList());
-        }
-
-        @Override
-        public List<User> toEntity(List<UserResponse> users) {
-            return users.stream().map(this::toEntity).collect(Collectors.toList());
-        }
     }
 }
