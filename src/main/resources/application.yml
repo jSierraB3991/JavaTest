@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${PG_HOST:localhost}:${PG_PORT:5432}/${DB_NAME:java_test}
+    username: ${USER_DB:postgres}
+    password: ${PASS_DB:root}
+    validationQuery: SELECT 1
+    testOnBorrow: true
+  jpa:
+    hibernate:
+      naming-strategy: org.hibernate.cfg.DefaultNamingStrategy
+      format_sql: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+info:
+  app:
+    name: Java Test
+    version: 1.0.0
+    encoding: UTF-8
+server:
+  Port: 8081
