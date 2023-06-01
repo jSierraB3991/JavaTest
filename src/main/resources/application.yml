@@ -20,3 +20,9 @@ info:
     encoding: UTF-8
 server:
   Port: 8081
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+  api-docs:
+    enabled: true
