@@ -1,6 +1,7 @@
 package com.bitbucket.test.domain.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "task")
 public class Task implements Serializable {
     private static final long serialVersionUID = 9155821926133886403L;

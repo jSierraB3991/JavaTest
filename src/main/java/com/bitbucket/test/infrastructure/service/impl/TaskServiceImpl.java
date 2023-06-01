@@ -9,7 +9,6 @@ import com.bitbucket.test.infrastructure.dto.Response;
 import com.bitbucket.test.infrastructure.dto.TaskRequest;
 import com.bitbucket.test.infrastructure.dto.TaskResponse;
 import com.bitbucket.test.infrastructure.dto.TaskUpdateRequest;
-import com.bitbucket.test.infrastructure.dto.UserTask;
 import com.bitbucket.test.infrastructure.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +68,7 @@ public class TaskServiceImpl implements TaskService {
             return response;
         }
         try {
+            verifyTask(response.getResponse(), request);
             Task task = repository.save(mapper.toEntity(request, code));
             return Response.<TaskResponse>builder()
                     .success(true)
@@ -80,6 +79,12 @@ public class TaskServiceImpl implements TaskService {
                     .success(false)
                     .message(ex.getMessage())
                     .build();
+        }
+    }
+
+    private void verifyTask(TaskResponse response, TaskUpdateRequest request) {
+        if(request.getState().equals(TaskState.DONE) && !response.getActive()) {
+            throw new RuntimeException("The task " + response.getName() + " is inactive, you can not move state to DONE");
         }
     }
 
