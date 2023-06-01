@@ -1,4 +1,4 @@
-package com.bitbucket.test.infrastructure.infrastructure;
+package com.bitbucket.test.infrastructure.controller;
 
 import com.bitbucket.test.domain.service.UserService;
 import com.bitbucket.test.infrastructure.dto.Response;
