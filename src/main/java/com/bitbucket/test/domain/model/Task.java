@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -29,4 +30,7 @@ public class Task implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private TaskState state;
+
+    @ManyToOne
+    private User user;
 }
